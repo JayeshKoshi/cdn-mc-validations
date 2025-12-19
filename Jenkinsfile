@@ -40,6 +40,7 @@ pipeline {
     environment {
         AWS_DEFAULT_REGION = "${params.SECRET_REGION}"
         VALIDATION_MODE = "${params.VALIDATION_TYPE}"
+        PATH = "/usr/local/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin:${env.PATH}"
     }
     
     stages {
