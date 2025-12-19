@@ -42,13 +42,13 @@ This folder contains the deployment-ready version of the CDN Verification Tool t
 
 ```bash
 # Fetch token from Secrets Manager automatically
-python3 main.py AMG00136 --secret-name cdn-automation/config
+python3 main.py AMGXXXX --secret-name cdn-automation/config
 
 # CDN only
-python3 main.py AMG00136 --cdn --secret-name cdn-automation/config
+python3 main.py AMGXXXX --cdn --secret-name cdn-automation/config
 
 # MediaConnect only
-python3 main.py AMG00136 --mc --secret-name cdn-automation/config
+python3 main.py AMGXXXX --mc --secret-name cdn-automation/config
 ```
 
 ## Next Steps
