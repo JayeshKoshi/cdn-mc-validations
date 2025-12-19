@@ -16,20 +16,6 @@ pipeline {
         )
         
         string(
-            name: 'SECRET_NAME',
-            defaultValue: 'bxp_token',
-            description: 'AWS Secrets Manager secret name (default: bxp_token)',
-            trim: true
-        )
-        
-        string(
-            name: 'SECRET_REGION',
-            defaultValue: 'ap-south-1',
-            description: 'AWS region where secret is stored (default: ap-south-1)',
-            trim: true
-        )
-        
-        string(
             name: 'TEST_DURATION',
             defaultValue: '120',
             description: 'CDN test duration in seconds (default: 120)',
@@ -38,7 +24,9 @@ pipeline {
     }
     
     environment {
-        AWS_DEFAULT_REGION = "${params.SECRET_REGION}"
+        AWS_DEFAULT_REGION = "ap-south-1"
+        SECRET_NAME = "bxp_token"
+        SECRET_REGION = "ap-south-1"
         VALIDATION_MODE = "${params.VALIDATION_TYPE}"
         PATH = "/usr/local/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin:${env.PATH}"
     }
@@ -112,7 +100,7 @@ pipeline {
                     echo "     • AMGID: ${params.AMGID}"
                     echo "     • Validation Type: ${params.VALIDATION_TYPE}"
                     echo "     • Test Duration: ${params.TEST_DURATION} seconds"
-                    echo "     • Secret: ${params.SECRET_NAME} (${params.SECRET_REGION})"
+                    echo "     • Secret: ${env.SECRET_NAME} (${env.SECRET_REGION})"
                     echo ""
                     
                     // Determine validation flags
@@ -138,8 +126,8 @@ pipeline {
                         
                         python3 main.py ${params.AMGID} ${validationFlag} \
                             --test-duration ${params.TEST_DURATION} \
-                            --secret-name ${params.SECRET_NAME} \
-                            --secret-region ${params.SECRET_REGION}
+                            --secret-name ${env.SECRET_NAME} \
+                            --secret-region ${env.SECRET_REGION}
                     """
                 }
             }
